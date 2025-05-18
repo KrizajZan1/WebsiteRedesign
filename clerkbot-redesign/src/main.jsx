@@ -6,7 +6,7 @@ import App from './App.jsx'
 import '@react-three/drei'
 import '@react-three/fiber'
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('mainroot')).render(
   <StrictMode>
     <App />
   </StrictMode>,

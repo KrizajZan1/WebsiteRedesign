@@ -29,14 +29,18 @@ const RobotModel = ({ modelPath }) => {
   useFrame((state) => {
     if (modelRef.current) {
       // Osnovne nastavitve
-      modelRef.current.scale.set(0.6, 0.6, 0.6);
+      modelRef.current.scale.set(0.7, 0.7, 0.7);
       modelRef.current.rotation.set(0, 0.8, 0);
       
       // Osnovna pozicija z nežnim lebdenjem
       const baseY = -1.4632344063314857;
       const offsetY = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
+      
+      // Preveri globalno spremenljivko
+      const xPosition = window.isWidgetOpen ? -1 : 1;
+      
       modelRef.current.position.set(
-        0.2, 
+        xPosition, 
         baseY + offsetY, 
         0
       );
