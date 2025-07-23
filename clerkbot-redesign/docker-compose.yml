@@ -1,0 +1,7 @@
+services:
+  clerkbot:
+    build: .
+    container_name: clerkbot
+    restart: unless-stopped
+    ports:
+      - 2169:2169
