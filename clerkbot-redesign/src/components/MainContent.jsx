@@ -2,6 +2,7 @@ import React, { useEffect, useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Environment, useAnimations } from '@react-three/drei';
 import gsap from 'gsap';
+import './MainContent.css';
 
 // Model komponenta z osnovno funkcionalnostjo
 const RobotModel = ({ modelPath }) => {
@@ -36,11 +37,8 @@ const RobotModel = ({ modelPath }) => {
       const baseY = -1.4632344063314857;
       const offsetY = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
       
-      // Preveri globalno spremenljivko
-      const xPosition = window.isWidgetOpen ? -1 : 1;
-      
       modelRef.current.position.set(
-        xPosition, 
+        1,  // Fiksna x pozicija
         baseY + offsetY, 
         0
       );
@@ -63,7 +61,7 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <div style={{color: 'red', padding: '20px'}}>
+      return <div className="error-message">
         <h2>Napaka pri nalaganju 3D modela</h2>
       </div>;
     }
@@ -75,6 +73,7 @@ const MainContent = () => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const modelContainerRef = useRef(null);
+  const speechBubbleRef = useRef(null);
 
   // Animation effect on component mount
   useEffect(() => {
@@ -96,59 +95,26 @@ const MainContent = () => {
       { opacity: 1, duration: 1.2 },
       "-=0.5"
     );
+
+    // Animacija za oblaček
+    timeline.fromTo(speechBubbleRef.current,
+      { opacity: 0, scale: 0.8, y: -20 },
+      { opacity: 1, scale: 1, y: 0, duration: 0.8 },
+      "-=0.5"
+    );
     
     return () => timeline.kill();
   }, []);
 
-  // CSS stiliziranje
-  const styles = {
-    mainContent: {
-      position: 'relative',
-      height: '100vh',
-      width: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '0 5%',
-      color: 'white',
-      zIndex: 1,
-      overflow: 'hidden'
-    },
-    titleContainer: {
-      maxWidth: '600px',
-      flex: 1
-    },
-    mainTitle: {
-      fontSize: '5rem',
-      fontWeight: 700,
-      margin: 0,
-      color: 'white',
-      lineHeight: 1,
-      textShadow: '0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3)',
-      letterSpacing: '-1px'
-    },
-    subtitle: {
-      fontSize: '1.5rem',
-      marginTop: '1rem',
-      fontWeight: 300,
-      opacity: 0.8
-    },
-    modelContainer: {
-      flex: 1,
-      height: '80vh',
-      maxWidth: '50%'
-    }
-  };
-
   return (
-    <div style={styles.mainContent}>
-      <div style={styles.titleContainer}>
-        <h1 ref={titleRef} style={styles.mainTitle}>ClerkBot AI</h1>
-        <p ref={subtitleRef} style={styles.subtitle}>Interface between your customers and AI.</p>
+    <div className="main-content">
+      <div className="title-container">
+        <h1 ref={titleRef} className="main-title">ClerkBot AI</h1>
+        <p ref={subtitleRef} className="subtitle">Interface between your customers and AI.</p>
       </div>
       
       {/* 3D Model container */}
-      <div ref={modelContainerRef} style={styles.modelContainer}>
+      <div ref={modelContainerRef} className="model-container">
         <ErrorBoundary>
           <Canvas 
             shadows 
@@ -173,6 +139,12 @@ const MainContent = () => {
             </Suspense>
           </Canvas>
         </ErrorBoundary>
+      </div>
+
+      {/* Oblaček iz slike */}
+      <div ref={speechBubbleRef} className="speech-bubble-image">
+        <img src="/images/cloud_image.png" alt="Speech bubble" />
+        <p className="bubble-text">How may I assist you?</p>
       </div>
     </div>
   );

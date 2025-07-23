@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, Suspense, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, Suspense, useLayoutEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment, useAnimations } from '@react-three/drei';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './About.css';
 
 // Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
@@ -82,111 +83,30 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      return <div style={{color: 'red', padding: '20px'}}>
-        <h2>Error loading 3D model</h2>
-      </div>;
+      return (
+        <div className="error-boundary">
+          <h2>Error loading 3D model</h2>
+        </div>
+      );
     }
     return this.props.children;
   }
 }
 
 // Section Component for horizontal scrolling
-const Section = ({ title, content, image, model, index }) => {
+const Section = ({ title, content, index }) => {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
-  const imageRef = useRef(null);
   
   return (
-    <div 
-      ref={sectionRef} 
-      className="horizontal-section"
-      style={{
-        width: '100vw',
-        height: '100vh',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <div 
-        ref={contentRef} 
-        style={{
-          width: '80%',
-          maxWidth: '1200px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '20px'
-        }}
-      >
+    <div ref={sectionRef} className="horizontal-section">
+      <div ref={contentRef} className="section-content">
         {/* Text Content */}
-        <div style={{ flex: '0 0 50%', padding: '20px' }}>
-          <h2 style={{
-            fontSize: '2.5rem',
-            color: '#00ffff',
-            marginBottom: '20px',
-            textShadow: '0 0 10px rgba(0, 255, 255, 0.3)'
-          }}>{title}</h2>
-          <div style={{ fontSize: '1.1rem', lineHeight: '1.6' }}>
+        <div className="section-text">
+          <h2 className="section-title">{title}</h2>
+          <div className="section-content-text">
             {content}
           </div>
-        </div>
-        
-        {/* Image or Model */}
-        <div ref={imageRef} style={{ flex: '0 0 45%', height: '60vh' }}>
-          {image ? (
-            <div style={{ 
-              width: '100%', 
-              height: '100%', 
-              borderRadius: '12px',
-              overflow: 'hidden',
-              background: 'rgba(26, 26, 26, 0.5)',
-              boxShadow: '0 4px 30px rgba(0, 255, 255, 0.15)',
-              border: '1px solid rgba(0, 255, 255, 0.3)'
-            }}>
-              <img 
-                src={image} 
-                alt={title} 
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover'
-                }}
-              />
-            </div>
-          ) : model ? (
-            <div style={{ 
-              width: '100%', 
-              height: '100%', 
-              borderRadius: '12px',
-              overflow: 'hidden',
-              background: 'rgba(26, 26, 26, 0.3)',
-              boxShadow: '0 4px 30px rgba(0, 255, 255, 0.15)',
-              border: '1px solid rgba(0, 255, 255, 0.3)'
-            }}>
-              <ErrorBoundary>
-                <Canvas 
-                  shadows 
-                  camera={{ 
-                    position: [6, 2, 4], 
-                    fov: 30,
-                    near: 0.1,
-                    far: 1000
-                  }}
-                  style={{ background: 'transparent' }}
-                >
-                  <Suspense fallback={null}>
-                    <RobotModel modelPath={model} />
-                    <ambientLight intensity={0.5} />
-                    <spotLight position={[5, 5, 5]} angle={0.15} penumbra={1} intensity={1} castShadow />
-                    <spotLight position={[-5, 5, 5]} angle={0.15} penumbra={1} intensity={0.5} castShadow />
-                    <Environment preset="city" />
-                  </Suspense>
-                </Canvas>
-              </ErrorBoundary>
-            </div>
-          ) : null}
         </div>
       </div>
     </div>
@@ -201,91 +121,103 @@ const About = () => {
   // Sections data
   const sections = [
     {
-      title: "About ClerkBot AI",
+      title: "About ClerkBot.AI",
       content: (
         <>
           <p>
-            Founded in 2023, ClerkBot AI is transforming customer service through advanced 
-            artificial intelligence. Our mission is to create seamless interactions between 
-            businesses and their customers.
+            <strong>Transform Every Interaction: Automated, Efficient, and Always Engaged.</strong>
           </p>
           <p>
-            With our <span style={{ color: '#00ffff', fontWeight: 600 }}>
-              state-of-the-art conversational AI
-            </span>, we're helping businesses automate routine inquiries while maintaining 
-            the human touch that customers value.
+            ClerkBot.AI is your ultimate solution for seamless customer communication, whether you're dealing 
+            with businesses (B2B) or direct consumers (B2C). Our advanced chatbot technology is designed to 
+            handle every interaction on your website, ensuring that your customers receive instant, accurate, and 
+            personalized responses 24/7.
           </p>
           <p>
-            ClerkBot AI is proudly based in Slovenia and supported by the 
-            Slovene Enterprise Fund and the European Union.
+            By integrating ClerkBot.AI into your operations, you'll not only enhance 
+            customer satisfaction but also free up valuable resources, allowing your team to focus on what really 
+            matters—growing your business.
           </p>
         </>
-      ),
-      model: "/models/StandStill.glb"
+      )
     },
     {
-      title: "Our Technology",
+      title: "Project",
       content: (
         <>
           <p>
-            ClerkBot AI leverages cutting-edge natural language processing and machine learning 
-            algorithms to understand and respond to customer inquiries with remarkable accuracy.
+            <strong>ClerkBot.AI: The Future of Customer Interaction</strong>
           </p>
           <p>
-            Our proprietary conversation engine adapts to your business needs, learning from 
-            each interaction to continuously improve its performance.
+            Modern AI has reached a point where it can effectively replace many aspects of human interaction. 
+            ClerkBot.AI is designed with the latest GPT technology, offering an innovative solution that 
+            surpasses traditional digital interactions.
+          </p>
+          <p>
+            It seamlessly integrates websites, search engines, phone support, and customer data capture 
+            in an intuitive manner. With conversations similar to speaking with a professional, 
+            it sets new standards in digital communication.
+          </p>
+          <p>
+            Our chatbot facilitates paperless operations with advanced data capture and form completion, 
+            reducing carbon footprint while enhancing efficiency for both B2C and B2B communications.
           </p>
         </>
-      ),
-      image: "/images/technology.jpg"
+      )
     },
     {
-      title: "Our Team",
+      title: "Things I Can Do",
       content: (
         <>
           <p>
-            Behind ClerkBot AI is a team of passionate AI researchers, engineers, and 
-            customer experience experts. With decades of combined experience in machine 
-            learning and conversational design, our diverse team is united by a common goal.
+            <strong>Transform your customer engagement—efficiently and effortlessly.</strong>
           </p>
-          <p>
-            We're making AI accessible and valuable for businesses of all sizes.
-          </p>
+          <div style={{ marginTop: '20px' }}>
+            <div style={{ marginBottom: '15px' }}>
+              <span style={{ color: '#00ffff', fontWeight: 'bold' }}>•</span> Understand and respond with human-like precision
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <span style={{ color: '#00ffff', fontWeight: 'bold' }}>•</span> Manage interactions across multiple touchpoints
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <span style={{ color: '#00ffff', fontWeight: 'bold' }}>•</span> Capture data, complete forms, and integrate with APIs
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <span style={{ color: '#00ffff', fontWeight: 'bold' }}>•</span> Deliver 24/7 customer service
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <span style={{ color: '#00ffff', fontWeight: 'bold' }}>•</span> Learn and adapt to your business needs
+            </div>
+            <div style={{ marginBottom: '15px' }}>
+              <span style={{ color: '#00ffff', fontWeight: 'bold' }}>•</span> Personalize interactions with detailed insights
+            </div>
+          </div>
         </>
-      ),
-      image: "/images/team.jpg"
+      )
     },
     {
-      title: "Our Values",
+      title: "How do I work?",
       content: (
         <>
-          <p>
-            At ClerkBot AI, we believe technology should serve humanity, not replace it. 
-            We are committed to developing AI that enhances human capabilities and creates 
-            better experiences for both businesses and their customers.
-          </p>
-          <p>
-            Transparency, privacy, and ethical AI development are core to everything we do.
-          </p>
+          <div style={{ marginTop: '10px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <video 
+              width="100%" 
+              height="auto"
+              controls
+              style={{ 
+                maxWidth: '600px',
+                borderRadius: '10px',
+                border: '2px solid rgba(0, 255, 255, 0.3)',
+                boxShadow: '0 4px 30px rgba(0, 255, 255, 0.15)'
+              }}
+            >
+              <source src="/Clerkbot_Tutorial.mp4" type="video/mp4" />
+              <source src="/Clerkbot_Tutorial.webm" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </>
-      ),
-      image: "/images/values.jpg"
-    },
-    {
-      title: "Our Impact",
-      content: (
-        <>
-          <p>
-            Since our launch, ClerkBot AI has helped businesses reduce customer service costs 
-            by up to 40% while improving customer satisfaction scores.
-          </p>
-          <p>
-            Our AI assistants have successfully handled millions of customer interactions across 
-            various industries including retail, healthcare, and financial services.
-          </p>
-        </>
-      ),
-      image: "/images/impact.jpg"
+      )
     }
   ];
 
@@ -379,54 +311,38 @@ const About = () => {
   }, [sections.length]);
   
   return (
-    <div 
-      ref={containerRef} 
-      style={{
-        position: 'relative',
-        width: '100%',
-        height: '100vh',
-        overflow: 'hidden', // Namesto 'auto' uporabimo 'hidden'
-        padding: '0',
-        color: 'white',
-        marginTop: '0',
-      }}
-    >
-      {/* Arrow indicator showing horizontal scroll direction */}
-      <div style={{
-        position: 'absolute',
-        top: '20px',
-        right: '20px',
-        background: 'rgba(0, 255, 255, 0.2)',
-        padding: '10px 20px',
-        borderRadius: '20px',
-        zIndex: 10,
-        fontSize: '0.9rem',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px'
-      }}>
-        Scroll to explore <span style={{ fontSize: '1.5rem' }}>→</span>
+    <div ref={containerRef} className="about-container">
+      {/* ROBOT - GLOBALNO FIKSEN NA LEVI STRANI */}
+      <div className="robot-container">
+        <ErrorBoundary>
+          <Canvas 
+            shadows 
+            camera={{ 
+              position: [6, 2, 4], 
+              fov: 30,
+              near: 0.1,
+              far: 1000
+            }}
+            className="robot-canvas"
+          >
+            <Suspense fallback={null}>
+              <RobotModel modelPath="/models/StandStill.glb" />
+              <ambientLight intensity={0.5} />
+              <spotLight position={[5, 5, 5]} angle={0.15} penumbra={1} intensity={1} castShadow />
+              <spotLight position={[-5, 5, 5]} angle={0.15} penumbra={1} intensity={0.5} castShadow />
+              <Environment preset="city" />
+            </Suspense>
+          </Canvas>
+        </ErrorBoundary>
       </div>
       
       {/* Horizontal sections container */}
-      <div 
-        ref={sectionsRef}
-        style={{
-          position: 'relative', // Dodamo position relative
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'nowrap',
-          height: '100vh',
-          willChange: 'transform' // Optimizacija za performans
-        }}
-      >
+      <div ref={sectionsRef} className="sections-container">
         {sections.map((section, index) => (
           <Section 
             key={index}
             title={section.title}
             content={section.content}
-            image={section.image}
-            model={section.model}
             index={index}
           />
         ))}

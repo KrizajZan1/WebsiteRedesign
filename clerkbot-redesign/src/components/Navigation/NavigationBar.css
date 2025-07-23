@@ -21,8 +21,90 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   padding: 0.5rem 1rem;
+  transition: color 0.3s ease;
 }
 
 .nav-links span:hover {
   color: #00ffff;
+}
+
+/* Skrit hamburger meni na računlaniških zaslonih */
+.hamburger-button {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 101;
+}
+
+.hamburger-button:hover {
+  color: #00ffff;
+}
+
+/* Tablični zasloni */
+@media (max-width: 768px) {
+  .nav-container {
+    padding: 0.8rem 0;
+  }
+  
+  .nav-links {
+    gap: 1.5rem;
+  }
+  
+  .nav-links span {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Telefonski zasloni */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 1rem;
+    background-color: #1a1a1a;
+  }
+  
+  .hamburger-button {
+    display: block;
+  }
+  
+  .nav-links {
+    display: none;
+    position: absolute;
+    left: 0;
+    margin-top: 15px;
+    width: 100%;
+    background-color: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .nav-links.mobile-open {
+    display: flex;
+  }
+  
+  .nav-links span {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  .nav-links span:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-links span:hover {
+    background-color: rgba(0, 255, 255, 0.1);
+  }
 }

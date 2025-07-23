@@ -7,47 +7,70 @@ const Pricing = () => {
       <h1 className="pricing-title">Our Plans</h1>
       
       <div className="pricing-boxes">
-        {/* Prvi pravokotnik */}
+        {/* Hobby paket */}
         <div className="pricing-box">
-          <h2>Basic</h2>
-          <div className="price">$9.99<span>/month</span></div>
+          <h2>Hobby</h2>
+          <div className="price">38€<span>/month</span></div>
           <ul>
-            <li>Basic AI features</li>
-            <li>5 requests per day</li>
-            <li>Email support</li>
-            <li>Basic documentation</li>
+            <li>1 agent</li>
+            <li>50 threads with max 50 steps per month</li>
+            <li>1 knowledge area</li>
+            <li>1 web site scrape</li>
+            <li>10 documents in knowledge base</li>
+            <li>1 collection form</li>
+            <li>Chat threads insights</li>
           </ul>
-          <button className="pricing-button">Select Plan</button>
         </div>
         
-        {/* Drugi pravokotnik */}
+        {/* Standard paket */}
         <div className="pricing-box highlighted">
           <div className="popular-tag">Popular</div>
-          <h2>Professional</h2>
-          <div className="price">$24.99<span>/month</span></div>
+          <h2>Standard</h2>
+          <div className="price">150€<span>/month</span></div>
           <ul>
-            <li>Advanced AI features</li>
-            <li>25 requests per day</li>
-            <li>Priority support</li>
-            <li>Complete documentation</li>
-            <li>API access</li>
+            <li>3 agents</li>
+            <li>150 threads with max 100 steps per month per agent</li>
+            <li>3 knowledge areas per agent</li>
+            <li>3 web sites scrape per agent</li>
+            <li>50 documents per agent</li>
+            <li>3 collection forms per agent</li>
+            <li>Chat threads insights</li>
+            <li>Analytics dashboard</li>
+            <li>Support through email</li>
           </ul>
-          <button className="pricing-button">Select Plan</button>
         </div>
         
-        {/* Tretji pravokotnik */}
+        {/* Professional paket */}
+        <div className="pricing-box">
+          <h2>Professional</h2>
+          <div className="price">500€<span>/month</span></div>
+          <ul>
+            <li>10 agents</li>
+            <li>500 threads with max 100 steps per month per agent</li>
+            <li>5 knowledge areas per agent</li>
+            <li>5 web sites scrape per agent</li>
+            <li>150 documents per agent</li>
+            <li>5 collection forms per agent</li>
+            <li>Chat threads insights</li>
+            <li>Analytics dashboard</li>
+            <li>Phone support</li>
+            <li>AI feedback gathering and improvements</li>
+          </ul>
+        </div>
+        
+        {/* Enterprise paket */}
         <div className="pricing-box">
           <h2>Enterprise</h2>
-          <div className="price">$49.99<span>/month</span></div>
+          <div className="price">Custom<span>/pricing</span></div>
           <ul>
-            <li>Full AI capabilities</li>
-            <li>Unlimited requests</li>
-            <li>24/7 dedicated support</li>
-            <li>Custom integration</li>
+            <li>All Professional features, plus:</li>
+            <li>Custom integration and deployment</li>
+            <li>SLA (99.9%+)</li>
+            <li>Priority support</li>
+            <li>Dedicated account manager</li>
             <li>Advanced analytics</li>
-            <li>Team accounts</li>
+            <li>Custom AI agent implementations</li>
           </ul>
-          <button className="pricing-button">Contact Sales</button>
         </div>
       </div>
     </div>

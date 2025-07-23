@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Background from './components/Background';
 import NavigationBar from './components/Navigation/NavigationBar';
 import MainContent from './components/MainContent';
@@ -8,21 +8,30 @@ import Footer from './components/Footer';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
-  
-  // Force background refresh when changing pages
-  useEffect(() => {
-    // Ensure the background is visible
-    const bgElement = document.querySelector('[data-component="background"]');
-    if (bgElement) {
-      bgElement.style.display = 'block';
-    }
-  }, [currentPage]);
-  
+    
   // Function to change page
   const handleNavChange = (page) => {
     // First clean up any ScrollTrigger instances
     if (window.gsap && window.gsap.ScrollTrigger) {
       window.gsap.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    }
+    
+    // Če je izbran contact, odpri ClerkBot widget
+    if (page === 'contact') {
+      const widget = document.getElementById('clerkbot-chat-widget');
+      if (widget) {
+        // Klikni na koordinate kjer je chat ikona
+        const widgetRect = widget.getBoundingClientRect();
+        const x = widgetRect.right - 30; // 30px od desne strani
+        const y = widgetRect.bottom - 30; // 30px od spodaj
+        
+        const elementAtPoint = document.elementFromPoint(x, y);
+        if (elementAtPoint) {
+          elementAtPoint.click();
+        }
+      }
+      
+      return;
     }
     
     setCurrentPage(page);
@@ -44,7 +53,7 @@ function App() {
   
   return (
     <>
-      <Background data-component="background" />
+      <Background />
       <NavigationBar onNavChange={handleNavChange} />
       {renderPage()}
       <Footer />

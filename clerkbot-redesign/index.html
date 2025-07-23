@@ -11,9 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ClerkBot.AI</title>
     <script>
-      // Dodaj globalno spremenljivko za sledenje stanju widgeta
-      window.isWidgetOpen = false;
-      
       // Obstoječi ClerkBot koda
       (function() {
         window.RUNTIME_CONFIG = { SUBDOMAIN: 'diplomko' };
@@ -22,19 +19,6 @@
         script.defer = true;
         document.head.appendChild(script);
       })();
-    </script>
-    
-    <!-- Dodaj poslušalec za klike na widget -->
-    <script>
-      document.addEventListener('click', function(e) {
-        // Preveri, ali je klik na ClerkBot widgetu ali njegovih elementih
-        if (e.target.closest('#clerkbot-chat-widget') || 
-            e.target.closest('.MuiBox-root')) {
-          // Spremeni stanje
-          window.isWidgetOpen = !window.isWidgetOpen;
-          console.log('Widget status changed:', window.isWidgetOpen);
-        }
-      });
     </script>
   </head>
   <body>
