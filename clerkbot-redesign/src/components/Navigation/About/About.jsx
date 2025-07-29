@@ -376,7 +376,7 @@ const About = () => {
             className="robot-canvas"
           >
             <Suspense fallback={null}>
-              <RobotModel modelPath="/models/StandStill.glb" />
+              <RobotModel modelPath="/models/RobotkoRotate.glb" />
               <ambientLight intensity={0.5} />
               <spotLight position={[5, 5, 5]} angle={0.15} penumbra={1} intensity={1} castShadow />
               <spotLight position={[-5, 5, 5]} angle={0.15} penumbra={1} intensity={0.5} castShadow />
