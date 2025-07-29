@@ -3,19 +3,17 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Environment, useAnimations } from '@react-three/drei';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import ScrollIndicator from '../../ScrollIndicator';
 import './About.css';
 
-// Register ScrollTrigger plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Model component with basic functionality and cleanup
 const RobotModel = ({ modelPath }) => {
   const { scene, animations } = useGLTF(modelPath);
   const modelRef = useRef();
   const { actions } = useAnimations(animations, modelRef);
   const { gl } = useThree();
   
-  // Play animations
   useEffect(() => {
     if (actions && Object.keys(actions).length > 0) {
       const firstAnimation = Object.keys(actions)[0];
@@ -31,7 +29,6 @@ const RobotModel = ({ modelPath }) => {
     };
   }, [actions]);
   
-  // Proper Three.js cleanup
   useEffect(() => {
     return () => {
       if (scene) {
@@ -49,14 +46,11 @@ const RobotModel = ({ modelPath }) => {
     };
   }, [scene]);
   
-  // Set position and animation
   useFrame((state) => {
     if (modelRef.current) {
-      // Basic settings
       modelRef.current.scale.set(0.5, 0.5, 0.5);
       modelRef.current.rotation.set(0, Math.sin(state.clock.elapsedTime * 0.3) * 0.3 + 0.5, 0);
       
-      // Position with gentle hovering
       const baseY = -1.2;
       const offsetY = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
       modelRef.current.position.set(
@@ -70,7 +64,6 @@ const RobotModel = ({ modelPath }) => {
   return <primitive ref={modelRef} object={scene} />;
 };
 
-// Error boundary component
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -93,7 +86,6 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-// Section Component for horizontal scrolling
 const Section = ({ title, content, index }) => {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
@@ -101,8 +93,8 @@ const Section = ({ title, content, index }) => {
   return (
     <div ref={sectionRef} className="horizontal-section">
       <div ref={contentRef} className="section-content">
-        {/* Text Content */}
-        <div className="section-text">
+        {/* Content Box podobno kot v Pricing */}
+        <div className="section-box">
           <h2 className="section-title">{title}</h2>
           <div className="section-content-text">
             {content}
@@ -118,7 +110,6 @@ const About = () => {
   const sectionsRef = useRef(null);
   const scrollTriggersRef = useRef([]);
   
-  // Sections data
   const sections = [
     {
       title: "About ClerkBot.AI",
@@ -218,27 +209,94 @@ const About = () => {
           </div>
         </>
       )
+    },
+    {
+      title: "Project Financing",
+      content: (
+        <>
+          <div>
+            <h3 style={{ color: '#00ffff', fontSize: '1.2rem', marginBottom: '15px' }}>
+              Information about project financing
+            </h3>
+            <p>
+              Research and development is being co-financed by Cloudvenia Ltd. and European Union through 
+              European Fund for regional development.
+            </p>
+            <p>
+              Link to the Slovenian page for European Funds: {' '}
+              <a 
+                href="https://evropskasredstva.si/en" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ 
+                  color: '#00ffff', 
+                  textDecoration: 'underline',
+                  textShadow: '0 0 5px rgba(0, 255, 255, 0.5)'
+                }}
+              >
+                EU FUNDS
+              </a>
+            </p>
+          </div>
+          
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-around', 
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '10px',
+            marginTop: '30px'
+          }}>
+            <img 
+              src="images/eu.jpg" 
+              alt="EU Flag - Sofinancira Evropska unija"
+              style={{ 
+                height: '60px',
+                filter: 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.3))'
+              }}
+            />
+            <img 
+              src="/images/IfeelSlovenia.jpg" 
+              alt="I feel Slovenia"
+              style={{ 
+                height: '60px',
+                filter: 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.3))'
+              }}
+            />
+            <img 
+              src="/images/slovene_enterprise_fund.png" 
+              alt="Slovene Enterprise Fund"
+              style={{ 
+                height: '60px',
+                filter: 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.3))'
+              }}
+            />
+            <img 
+              src="/images/MGTS_logo-2023.png" 
+              alt="Republika Slovenija - Ministrstvo za gospodarstvo"
+              style={{ 
+                height: '60px',
+                filter: 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.3))'
+              }}
+            />
+          </div>
+        </>
+      )
     }
   ];
 
-  // Set up horizontal scrolling with GSAP
   useLayoutEffect(() => {
     if (!sectionsRef.current || !containerRef.current) return;
     
-    // Počistimo morebitne prejšnje instance ScrollTriggerja
     ScrollTrigger.getAll().forEach(st => st.kill());
     
-    // Calculate the width of all sections combined
     const totalWidth = sections.length * window.innerWidth;
     
-    // Set the width of the sections container
     sectionsRef.current.style.width = `${totalWidth}px`;
     
-    // Zagotovimo, da je overflow nastavljen pravilno
     containerRef.current.style.overflowX = 'hidden';
     containerRef.current.style.overflowY = 'scroll';
     
-    // Dodamo prepoznavne stile za lažjo identifikacijo sekcij
     const sectionElements = document.querySelectorAll('.horizontal-section');
     sectionElements.forEach((section, i) => {
       section.style.position = 'absolute';
@@ -246,34 +304,28 @@ const About = () => {
       section.style.width = '100vw';
     });
     
-    // UPORABIMO PREPROSTEJŠI PRISTOP Z HORIZONTALNIM SCROLLANJEM
     const scrollTrigger = ScrollTrigger.create({
       trigger: containerRef.current,
       pin: true,
       pinSpacing: true,
       start: "top top",
-      end: "+=3000", // Fiksna vrednost scrollanja, ki jo lahko prilagodimo
+      end: "+=3000",
       onUpdate: self => {
-        // Premaknemo sekcije horizontalno
         const x = -self.progress * (totalWidth - window.innerWidth);
         gsap.set(sectionsRef.current, { x });
       }
     });
     
-    // Dodamo scrollTrigger v array za čiščenje
     scrollTriggersRef.current.push(scrollTrigger);
     
-    // Omogočimo preprostejšo vizualno animacijo za vsako sekcijo
     sectionElements.forEach((section, i) => {
       if (i > 0) {
         const title = section.querySelector('h2');
         const paragraphs = section.querySelectorAll('p');
         
-        // Začetni stil
         gsap.set(title, { opacity: 0, y: 20 });
         gsap.set(paragraphs, { opacity: 0, y: 20 });
         
-        // Ustvarimo animacijo, ki se sproži, ko je sekcija vidna
         const trigger = ScrollTrigger.create({
           trigger: section,
           start: "left 80%",
@@ -293,14 +345,12 @@ const About = () => {
       }
     });
     
-    // Comprehensive cleanup
     return () => {
       scrollTriggersRef.current.forEach(trigger => {
         if (trigger) trigger.kill();
       });
       scrollTriggersRef.current = [];
       
-      // Počistimo vse animacije
       gsap.killTweensOf(sectionsRef.current);
       gsap.killTweensOf('.horizontal-section h2');
       gsap.killTweensOf('.horizontal-section p');
@@ -347,6 +397,8 @@ const About = () => {
           />
         ))}
       </div>
+      
+      <ScrollIndicator />
     </div>
   );
 };

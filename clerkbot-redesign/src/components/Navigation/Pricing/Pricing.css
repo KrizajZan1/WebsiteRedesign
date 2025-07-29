@@ -93,27 +93,27 @@
 }
 
 .pricing-box ul li {
-  padding: 8px 0; /* Zmanjšano iz 10px */
+  padding: 8px 0;
   border-bottom: 1px solid rgba(0, 255, 255, 0.2);
   text-align: center;
   font-size: 0.9rem;
   line-height: 1.4; 
 }
 
-/* Mobilni zasloni */
+/* Tablični zasloni */
 @media (max-width: 768px) {
   .pricing-container {
-    padding-bottom: 200px; /* Še več za mobilne zaslone */
+    padding-bottom: 200px;
   }
   
   .pricing-box {
-    margin-bottom: 30px; /* Dodatni prostor med kartami */
+    margin-bottom: 30px;
   }
 }
 
-/* Manjši mobilni zasloni */
+/* Mobilni zasloni */
 @media (max-width: 480px) {
   .pricing-container {
-    padding-bottom: 150px; /* Še več za majhne zaslone */
+    padding-bottom: 150px;
   }
 }

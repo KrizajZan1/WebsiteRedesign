@@ -27,7 +27,7 @@
 }
 
 .subtitle {
-  font-size: 1.9rem;
+  font-size: 1.7rem;
   margin-top: 1rem;
   font-weight: 300;
   opacity: 0.8;
@@ -99,7 +99,6 @@
     margin-top: 10px;
   }
   
-  /* 3D Model - postavljen na sredino zaslona */
   .model-container {
     order: 2;
     position: absolute;
@@ -111,7 +110,6 @@
     z-index: 5;
   }
   
-  /* Speech bubble - pomanjšan in na sredino */
   .speech-bubble-image {
     order: 3;
     align-items: center;

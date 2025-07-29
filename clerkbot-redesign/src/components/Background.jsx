@@ -117,7 +117,7 @@ const NeonLine = ({ delay = 0, verticalZone = 'middle' }) => { // privzete vredn
     });
     
     timeline.to(fadeRef, {
-      current: 1.1,  // Malo čez 1 za popoln izbris
+      current: 1.1,
       duration: LINE_PROPERTIES.ANIMATION_DURATION,
       delay: LINE_PROPERTIES.BREAK_DELAY,
       ease: "power1.inOut"
@@ -149,18 +149,18 @@ const NeonLine = ({ delay = 0, verticalZone = 'middle' }) => { // privzete vredn
         if (isNearHead) {
           const whiteFactor = 1 - (distanceFromHead / LINE_PROPERTIES.HEAD_SIZE);
           
-          colors[i * 4] = color.r * (1 - whiteFactor) + whiteFactor;     // R
-          colors[i * 4 + 1] = color.g * (1 - whiteFactor) + whiteFactor; // G
-          colors[i * 4 + 2] = color.b * (1 - whiteFactor) + whiteFactor; // B
+          colors[i * 4] = color.r * (1 - whiteFactor) + whiteFactor;
+          colors[i * 4 + 1] = color.g * (1 - whiteFactor) + whiteFactor;
+          colors[i * 4 + 2] = color.b * (1 - whiteFactor) + whiteFactor;
         } else {
-          colors[i * 4] = color.r;     // R
-          colors[i * 4 + 1] = color.g; // G
-          colors[i * 4 + 2] = color.b; // B
+          colors[i * 4] = color.r;
+          colors[i * 4 + 1] = color.g;
+          colors[i * 4 + 2] = color.b;
         }
       } else {
-        colors[i * 4] = 0;     // R
-        colors[i * 4 + 1] = 0; // G
-        colors[i * 4 + 2] = 0; // B
+        colors[i * 4] = 0;
+        colors[i * 4 + 1] = 0;
+        colors[i * 4 + 2] = 0;
       }
       
       colors[i * 4 + 3] = opacity;
@@ -201,9 +201,9 @@ const NeonLine = ({ delay = 0, verticalZone = 'middle' }) => { // privzete vredn
 const NeonLines = () => {
   return (
     <>
-      <NeonLine delay={0} verticalZone="middle" /> {/* Prva črta takoj */}
-      <NeonLine delay={3} verticalZone="top" />    {/* Druga po 3s */}
-      <NeonLine delay={6} verticalZone="bottom" /> {/* Tretja po 6s */}
+      <NeonLine delay={0} verticalZone="middle" />
+      <NeonLine delay={3} verticalZone="top" />
+      <NeonLine delay={6} verticalZone="bottom" />
     </>
   );
 };
@@ -232,7 +232,7 @@ const Background = (props) => {
         }}
       >
         <NeonLines />
-        <EffectComposer> {/* Odgovoren za dodajanje efektov. V našem primeru samo Bloom efekt odgovoren za sijaj neon črt*/}
+        <EffectComposer>
           <Bloom 
             intensity={1.5}
             luminanceThreshold={0.1}

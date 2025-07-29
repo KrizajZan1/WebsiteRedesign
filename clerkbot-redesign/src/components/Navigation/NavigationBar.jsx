@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './NavigationBar.css';
 
 const NavigationBar = ({ onNavChange }) => {
@@ -6,7 +6,7 @@ const NavigationBar = ({ onNavChange }) => {
 
   const handleNavClick = (page) => {
     onNavChange(page);
-    setIsMobileMenuOpen(false); // Close menu on selection
+    setIsMobileMenuOpen(false);
   };
 
   const toggleMobileMenu = () => {

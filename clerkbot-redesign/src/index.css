@@ -5,8 +5,7 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* Premik ClerkBot widgeta navzgor */
 #root {
   position: fixed !important;
-  z-index: 10000 !important; /* Zelo visok z-index za zagotovitev vidnosti */
+  z-index: 10000 !important;
 }

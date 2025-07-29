@@ -4,13 +4,11 @@ import { useGLTF, Environment, useAnimations } from '@react-three/drei';
 import gsap from 'gsap';
 import './MainContent.css';
 
-// Model komponenta z osnovno funkcionalnostjo
 const RobotModel = ({ modelPath }) => {
   const { scene, animations } = useGLTF(modelPath);
   const modelRef = useRef();
   const { actions } = useAnimations(animations, modelRef);
   
-  // Predvajanje animacij
   useEffect(() => {
     if (actions && Object.keys(actions).length > 0) {
       const firstAnimation = Object.keys(actions)[0];
@@ -26,19 +24,16 @@ const RobotModel = ({ modelPath }) => {
     };
   }, [actions]);
   
-  // Nastavitev pozicije in animacija
   useFrame((state) => {
     if (modelRef.current) {
-      // Osnovne nastavitve
       modelRef.current.scale.set(0.7, 0.7, 0.7);
       modelRef.current.rotation.set(0, 0.8, 0);
       
-      // Osnovna pozicija z nežnim lebdenjem
       const baseY = -1.4632344063314857;
       const offsetY = Math.sin(state.clock.elapsedTime * 0.5) * 0.1;
       
       modelRef.current.position.set(
-        1,  // Fiksna x pozicija
+        1,
         baseY + offsetY, 
         0
       );
@@ -48,7 +43,6 @@ const RobotModel = ({ modelPath }) => {
   return <primitive ref={modelRef} object={scene} />;
 };
 
-// Dodaj manjkajočo ErrorBoundary komponento
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -69,13 +63,18 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-const MainContent = () => {
+const MainContent = ({ onOpenChat }) => {
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const modelContainerRef = useRef(null);
   const speechBubbleRef = useRef(null);
 
-  // Animation effect on component mount
+  const handleSpeechBubbleClick = () => {
+    if (onOpenChat) {
+      onOpenChat();
+    }
+  };
+
   useEffect(() => {
     const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
     
@@ -96,7 +95,6 @@ const MainContent = () => {
       "-=0.5"
     );
 
-    // Animacija za oblaček
     timeline.fromTo(speechBubbleRef.current,
       { opacity: 0, scale: 0.8, y: -20 },
       { opacity: 1, scale: 1, y: 0, duration: 0.8 },
@@ -110,7 +108,7 @@ const MainContent = () => {
     <div className="main-content">
       <div className="title-container">
         <h1 ref={titleRef} className="main-title">ClerkBot AI</h1>
-        <p ref={subtitleRef} className="subtitle">Interface between your customers and AI.</p>
+        <p ref={subtitleRef} className="subtitle">Interface between your customers and your AI.</p>
       </div>
       
       {/* 3D Model container */}
@@ -129,20 +127,22 @@ const MainContent = () => {
             <Suspense fallback={null}>
               <RobotModel modelPath="/models/Robotko.glb" />
               
-              {/* Osvetlitev */}
               <ambientLight intensity={0.5} />
               <spotLight position={[5, 5, 5]} angle={0.15} penumbra={1} intensity={1} castShadow />
               <spotLight position={[-5, 5, 5]} angle={0.15} penumbra={1} intensity={0.5} castShadow />
               
-              {/* Okolje */}
               <Environment preset="city" />
             </Suspense>
           </Canvas>
         </ErrorBoundary>
       </div>
 
-      {/* Oblaček iz slike */}
-      <div ref={speechBubbleRef} className="speech-bubble-image">
+      <div 
+        ref={speechBubbleRef} 
+        className="speech-bubble-image clickable-bubble"
+        onClick={handleSpeechBubbleClick}
+        style={{ cursor: 'pointer' }}
+      >
         <img src="/images/cloud_image.png" alt="Speech bubble" />
         <p className="bubble-text">How may I assist you?</p>
       </div>
