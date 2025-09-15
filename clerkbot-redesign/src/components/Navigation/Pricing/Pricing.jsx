@@ -6,7 +6,6 @@ const Pricing = () => {
       <h1 className="pricing-title">Our Plans</h1>
       
       <div className="pricing-boxes">
-        {/* Hobby paket */}
         <div className="pricing-box">
           <h2>Hobby</h2>
           <div className="price">38€<span>/month</span></div>
@@ -21,7 +20,6 @@ const Pricing = () => {
           </ul>
         </div>
         
-        {/* Standard paket */}
         <div className="pricing-box highlighted">
           <div className="popular-tag">Popular</div>
           <h2>Standard</h2>
@@ -39,7 +37,6 @@ const Pricing = () => {
           </ul>
         </div>
         
-        {/* Professional paket */}
         <div className="pricing-box">
           <h2>Professional</h2>
           <div className="price">500€<span>/month</span></div>
@@ -57,7 +54,6 @@ const Pricing = () => {
           </ul>
         </div>
         
-        {/* Enterprise paket */}
         <div className="pricing-box">
           <h2>Enterprise</h2>
           <div className="price">Custom<span>/pricing</span></div>

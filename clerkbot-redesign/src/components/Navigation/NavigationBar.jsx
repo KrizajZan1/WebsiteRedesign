@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './NavigationBar.css';
+import { Menu } from 'lucide-react';
 
 const NavigationBar = ({ onNavChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ const NavigationBar = ({ onNavChange }) => {
         onClick={toggleMobileMenu}
         aria-label="Toggle menu"
       >
-        ☰
+        <Menu />
       </button>
 
       {/* Navigation links */}

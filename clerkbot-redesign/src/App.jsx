@@ -6,7 +6,7 @@ import Pricing from './components/Navigation/Pricing/Pricing';
 import About from './components/Navigation/About/About';
 import Footer from './components/Footer';
 
-function App() {
+export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
     
   // Funkcija za odpiranje chat widget-a
@@ -24,11 +24,7 @@ function App() {
     }
   };
 
-  const handleNavChange = (page) => {
-    if (window.gsap && window.gsap.ScrollTrigger) {
-      window.gsap.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    }
-    
+  const handleNavChange = (page) => {    
     if (page === 'contact') {
       handleOpenChat();
       return;
@@ -59,5 +55,3 @@ function App() {
     </>
   );
 }
-
-export default App;
