@@ -97,7 +97,7 @@ export default function MainContent({ onOpenChat }) {
         >
           <Suspense fallback={null}>
             <RobotModel modelPath="/models/Robotko.glb" />
-            <Environment preset="city" />
+            {/* <Environment preset="city" /> */}
           </Suspense>
         </Canvas>
       </div>
