@@ -107,7 +107,7 @@ const About = () => {
         >
           <Suspense fallback={null}>
             <RobotModel modelPath="/models/RobotkoRotate.glb" />
-            <Environment preset="city" />
+            {/* <Environment preset="city" /> */}
           </Suspense>
         </Canvas>
       </div>
